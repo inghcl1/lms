@@ -90,7 +90,7 @@ public class HistoryServiceImplTest {
 
 	@Test(expected = LmsException.class)
 	public void testLeaveHistoryWithinDates2() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 //		Mockito.when(appliedLeaveRepository.findByAppliedLeaveDateBetween(LocalDate.parse("11-08-2019",formatter), LocalDate.parse("13-08-2019",formatter)))
 //				.thenReturn(Optional.of(appliedLeaveList));

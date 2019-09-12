@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,12 +69,12 @@ public class HistoryServiceImpl implements HistoryService {
 
 			Optional<LeaveType> leaveType = leaveTypeRepository.findById(appliedLeave.getLeaveTypeId());
 			if (!leaveType.isPresent())
-				throw new LmsException(LmsConstants.NOAPPLIEDLEAVES);
+				throw new LmsException(LmsConstants.LEAVE_TYPE_NOT_EXIST);
 
 			LeaveHistoryWithinDateOutput leaveHistoryWithinDateOutput = new LeaveHistoryWithinDateOutput();
-			leaveHistoryWithinDateOutput.setAppliedLeaveDate(appliedLeave.getAppliedLeaveDate());
-			leaveHistoryWithinDateOutput.setDescription(appliedLeave.getDescription());
-			leaveHistoryWithinDateOutput.setLeaveType(leaveType.get().getLeaveType());
+			BeanUtils.copyProperties(appliedLeave, leaveHistoryWithinDateOutput);
+			BeanUtils.copyProperties(leaveType.get(), leaveHistoryWithinDateOutput);
+
 			leaveHistoryWithinDateOutputList.add(leaveHistoryWithinDateOutput);
 
 		});

@@ -9,8 +9,8 @@ public class LmsConstants {
 	public static final int Last_DAY_VALUE = 30;
 	public static final String LAST_THREE_MONTHS = "LastThreeMonths";
 	public static final String Current_MONTH = "CurrentMonth";
+	public static final String LEAVE_TYPE_NOT_EXIST = "CurrentMonth";
 
-	
 
 
 }

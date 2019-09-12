@@ -1,8 +1,8 @@
 package com.hcl.lms.service;
 
 import java.time.LocalDate;
-
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +36,7 @@ public class RangeServiceImpl implements RangeService {
 	@Override
 	public List<RangeDto> getRange(String range) {
 
-		List<RangeDto> ranges = new ArrayList<RangeDto>();
+		List<RangeDto> ranges = new ArrayList<>();
 		if (range.equals(LmsConstants.LAST_THREE_MONTHS)) {
 			LocalDate date = LocalDate.now();
 			LocalDate lastThreeMonths = date.minus(LmsConstants.MONTH_VALUE, ChronoUnit.MONTHS);
@@ -57,7 +57,12 @@ public class RangeServiceImpl implements RangeService {
 
 		else {
 			LocalDate date = LocalDate.now();
-
+			
+			//1A. Last day of current month
+			  LocalDate lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
+			
+			  //end
+			  
 			List<AppliedLeave> leave = rangeRepository.findAll();
 
 			List<AppliedLeave> h2 = leave.stream()
