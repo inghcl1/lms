@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,15 @@ import com.hcl.lms.repository.AppliedLeaveRepository;
 import com.hcl.lms.repository.LeaveTypeRepository;
 import com.hcl.lms.util.LmsConstants;
 
+/**
+ * 
+ * @author sairam this class will get the leave history of a user with two dates
+ * 
+ **/
 @Service
 public class HistoryServiceImpl implements HistoryService {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(HistoryServiceImpl.class);
 
 	@Autowired
 	AppliedLeaveRepository appliedLeaveRepository;
@@ -27,9 +36,19 @@ public class HistoryServiceImpl implements HistoryService {
 	@Autowired
 	LeaveTypeRepository leaveTypeRepository;
 
+	/**
+	 * @apiNote this method will return the list of leaves history of a perticular
+	 *          user
+	 * @param fromdate from date of the leaves list
+	 * @param todate   to date of the leaves list
+	 * @param userId   user id of the logined user
+	 **/
+
 	@Override
 	public List<LeaveHistoryWithinDateOutput> leaveHistoryWithinDates(String fromdate, String todate, Integer userId) {
 
+		LOGGER.info("HistoryServiceImpl--> leaveHistoryWithinDates fromdate:{}, todate:{}, userId:{}", fromdate, todate,
+				userId);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 		Optional<List<AppliedLeave>> appliedLeaves = appliedLeaveRepository.findByAppliedLeaveDateBetween(
@@ -58,6 +77,8 @@ public class HistoryServiceImpl implements HistoryService {
 			leaveHistoryWithinDateOutputList.add(leaveHistoryWithinDateOutput);
 
 		});
+
+		LOGGER.info("HistoryServiceImpl--> leaveHistoryWithinDates completd");
 		return leaveHistoryWithinDateOutputList;
 
 	}
