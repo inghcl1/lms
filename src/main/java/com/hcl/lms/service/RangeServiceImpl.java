@@ -1,7 +1,7 @@
 package com.hcl.lms.service;
 
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hcl.lms.dto.LeaveHistoryWithinDateOutput;
 import com.hcl.lms.dto.RangeDto;
 import com.hcl.lms.entity.AppliedLeave;
 import com.hcl.lms.entity.LeaveType;
@@ -32,50 +33,32 @@ public class RangeServiceImpl implements RangeService {
 	RangeRepository rangeRepository;
 	@Autowired
 	LeaveTypesRepository leavesTypeRepository;
-	
+
+	@Autowired
+	HistoryService historyService;
 
 	@Override
-	public List<RangeDto> getRange(Integer userId,String range) {
+	public List<LeaveHistoryWithinDateOutput> getRange(Integer userId, Integer range) {
 
-		List<RangeDto> ranges = new ArrayList<RangeDto>();
-		if (range.equals(LmsConstants.LAST_THREE_MONTHS)) {
-			LocalDate date = LocalDate.now();
-			LocalDate lastThreeMonths = date.minus(LmsConstants.MONTH_VALUE, ChronoUnit.MONTHS);
+		List<LeaveHistoryWithinDateOutput> ranges = new ArrayList<LeaveHistoryWithinDateOutput>();
 
-			List<AppliedLeave> leave = rangeRepository.findAll(userId,date,lastThreeMonths);
+		LocalDate date = LocalDate.now();
+		LocalDate dateRange = date.minus(range, ChronoUnit.MONTHS);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		String toDate = date.format(formatter);
+		String fromDate = dateRange.format(formatter);
+
+		List<LeaveHistoryWithinDateOutput> leave = historyService.leaveHistoryWithinDates(fromDate, toDate, userId);
 		leave.forEach(obj -> {
-				RangeDto dto = new RangeDto();
-				dto.setAppliedLeaveDate(obj.getAppliedLeaveDate());
+			LeaveHistoryWithinDateOutput dto = new LeaveHistoryWithinDateOutput();
+			dto.setAppliedLeaveDate(obj.getAppliedLeaveDate());
 
-				dto.setDescription(obj.getDescription());
-				Optional<LeaveType> leaveTypes = leavesTypeRepository.findById(obj.getLeaveTypeId());
-				dto.setLeaveType(leaveTypes.get().getLeaveType());
-				ranges.add(dto);
-			});
-			return ranges;
+			dto.setDescription(obj.getDescription());
 
-		}
+			dto.setLeaveType(obj.getLeaveType());
+			ranges.add(dto);
+		});
+		return ranges;
 
-		else {
-			LocalDate date = LocalDate.now();
-
-			List<AppliedLeave> leave = rangeRepository.findByuserId(userId);
-			
-
-			List<AppliedLeave> h2 = leave.stream()
-					.filter(line -> date.getMonth() == line.getAppliedLeaveDate().getMonth())
-					.collect(Collectors.toList());
-
-			h2.forEach(obj -> {
-				RangeDto dto = new RangeDto();
-				dto.setAppliedLeaveDate(obj.getAppliedLeaveDate());
-
-				dto.setDescription(obj.getDescription());
-				Optional<LeaveType> leaveTypes = leavesTypeRepository.findById(obj.getLeaveTypeId());
-				dto.setLeaveType(leaveTypes.get().getLeaveType());
-				ranges.add(dto);
-			});
-			return ranges;
-		}
 	}
 }
