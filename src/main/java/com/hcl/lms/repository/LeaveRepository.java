@@ -5,11 +5,10 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hcl.lms.entity.User;
-
+import com.hcl.lms.entity.Leave;
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 
-	public Optional<User> findByUserNameAndPassword(String userName, String password);
+	Optional<Leave> findByUserIdAndLeaveTypeId(Integer userId, Integer leaveTypeId);
 
 }
