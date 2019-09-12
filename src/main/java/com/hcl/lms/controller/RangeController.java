@@ -13,9 +13,10 @@ import com.hcl.lms.service.RangeService;
 @RestController
 @RequestMapping("/hcl")
 public class RangeController {
-	
+
 	@Autowired
 	RangeService rangeService;
+
 	@GetMapping("/api/{userId}/{range}")
 public ResponseEntity getRange(@PathVariable Integer userId,@PathVariable String range ) {
 		
