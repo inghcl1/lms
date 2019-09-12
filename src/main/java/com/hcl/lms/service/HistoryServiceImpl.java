@@ -35,7 +35,10 @@ public class HistoryServiceImpl implements HistoryService {
 		Optional<List<AppliedLeave>> appliedLeaves = appliedLeaveRepository.findByAppliedLeaveDateBetween(
 				LocalDate.parse(fromdate, formatter), LocalDate.parse(todate, formatter));
 
-		if ((!appliedLeaves.isPresent()) && (!appliedLeaves.get().isEmpty()))
+		if ((!appliedLeaves.isPresent()))
+			throw new LmsException(LmsConstants.NOAPPLIEDLEAVES);
+
+		if ((appliedLeaves.get().isEmpty()))
 			throw new LmsException(LmsConstants.NOAPPLIEDLEAVES);
 
 		Stream<AppliedLeave> appliedLeavesList = appliedLeaves.get().stream().filter(p -> p.getUserId().equals(userId));
