@@ -14,7 +14,9 @@ import com.hcl.lms.entity.AppliedLeave;
 public interface RangeRepository extends JpaRepository<AppliedLeave,Integer>{
 
 	
-@Query("select c from AppliedLeave c where c.appliedLeaveDate>=:lastThreeMonths and c.appliedLeaveDate<=:date")
-List<AppliedLeave> findAll(LocalDate date, LocalDate lastThreeMonths);
+@Query("select c from AppliedLeave c where c.appliedLeaveDate>=:lastThreeMonths and c.appliedLeaveDate<=:date and  c.userId=:userId")
+List<AppliedLeave> findAll(Integer userId,LocalDate date, LocalDate lastThreeMonths);
+@Query("select c from AppliedLeave c where c.userId=:userId")
+List<AppliedLeave> findByuserId(Integer userId);
 
 }

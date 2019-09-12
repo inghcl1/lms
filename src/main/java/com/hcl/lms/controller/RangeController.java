@@ -17,11 +17,12 @@ public class RangeController {
 	@Autowired
 	RangeService rangeService;
 
-	@GetMapping("/api/{range}")
-	public ResponseEntity getRange(@PathVariable String range) {
-
-		return new ResponseEntity<>(rangeService.getRange(range), HttpStatus.OK);
-
+	@GetMapping("/api/{userId}/{range}")
+public ResponseEntity getRange(@PathVariable Integer userId,@PathVariable String range ) {
+		
+		return new ResponseEntity<>(rangeService.getRange(userId,range),HttpStatus.OK);
+		
 	}
+
 
 }

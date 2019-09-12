@@ -34,14 +34,14 @@ public class RangeServiceImpl implements RangeService {
 	LeaveTypesRepository leavesTypeRepository;
 
 	@Override
-	public List<RangeDto> getRange(String range) {
+	public List<RangeDto> getRange(Integer userId, String range) {
 
 		List<RangeDto> ranges = new ArrayList<>();
 		if (range.equals(LmsConstants.LAST_THREE_MONTHS)) {
 			LocalDate date = LocalDate.now();
 			LocalDate lastThreeMonths = date.minus(LmsConstants.MONTH_VALUE, ChronoUnit.MONTHS);
 
-			List<AppliedLeave> leave = rangeRepository.findAll(date, lastThreeMonths);
+			List<AppliedLeave> leave = rangeRepository.findAll(userId, date, lastThreeMonths);
 			leave.forEach(obj -> {
 				RangeDto dto = new RangeDto();
 				dto.setAppliedLeaveDate(obj.getAppliedLeaveDate());
@@ -57,13 +57,13 @@ public class RangeServiceImpl implements RangeService {
 
 		else {
 			LocalDate date = LocalDate.now();
-			
-			//1A. Last day of current month
-			  LocalDate lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
-			
-			  //end
-			  
-			List<AppliedLeave> leave = rangeRepository.findAll();
+
+			// 1A. Last day of current month
+			LocalDate lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
+
+			// end
+
+			List<AppliedLeave> leave = rangeRepository.findByuserId(userId);
 
 			List<AppliedLeave> h2 = leave.stream()
 					.filter(line -> date.getMonth() == line.getAppliedLeaveDate().getMonth())
