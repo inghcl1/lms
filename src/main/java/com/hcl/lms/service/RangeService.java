@@ -9,6 +9,6 @@ import com.hcl.lms.dto.RangeDto;
 @Service
 public interface RangeService {
 
-	 List<RangeDto> getRange (String range);
+	 List<RangeDto> getRange (Integer userId,String range);
 
 }
