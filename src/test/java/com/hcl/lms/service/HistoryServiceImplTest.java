@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,7 @@ import com.hcl.lms.dto.LeaveHistoryWithinDateOutput;
 import com.hcl.lms.entity.AppliedLeave;
 import com.hcl.lms.entity.Leave;
 import com.hcl.lms.entity.LeaveType;
+import com.hcl.lms.exception.LmsException;
 import com.hcl.lms.repository.AppliedLeaveRepository;
 import com.hcl.lms.repository.LeaveTypeRepository;
 
@@ -82,7 +84,31 @@ public class HistoryServiceImplTest {
 		Mockito.when(leaveTypeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(leaveType));
 		List<LeaveHistoryWithinDateOutput> actual = historyServiceImpl.leaveHistoryWithinDates("11-08-2019", "13-08-2019", 1);
 		
-//		Assert.assertEquals("RH", actual.get(0).getLeaveType());
+		Assert.assertEquals("RH", actual.get(0).getLeaveType());
+	
+	}
+
+	@Test(expected = LmsException.class)
+	public void testLeaveHistoryWithinDates2() {
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+//		Mockito.when(appliedLeaveRepository.findByAppliedLeaveDateBetween(LocalDate.parse("11-08-2019",formatter), LocalDate.parse("13-08-2019",formatter)))
+//				.thenReturn(Optional.of(appliedLeaveList));
+//		Mockito.when(leaveTypeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(leaveType));
+		 historyServiceImpl.leaveHistoryWithinDates("11-08-2019", "13-08-2019", 1);
+		
+	
+	}
+	
+	@Test(expected = LmsException.class)
+	public void testLeaveHistoryWithinDates3() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+		Mockito.when(appliedLeaveRepository.findByAppliedLeaveDateBetween(LocalDate.parse("11-08-2019",formatter), LocalDate.parse("13-08-2019",formatter)))
+				.thenReturn(Optional.of(appliedLeaveList));
+//		Mockito.when(leaveTypeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(leaveType));
+		 historyServiceImpl.leaveHistoryWithinDates("11-08-2019", "13-08-2019", 1);
+		
 	
 	}
 

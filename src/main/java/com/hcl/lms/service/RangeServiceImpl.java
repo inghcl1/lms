@@ -1,23 +1,22 @@
 package com.hcl.lms.service;
 
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
+
 import java.time.temporal.ChronoUnit;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hcl.lms.dto.LeaveHistoryWithinDateOutput;
-import com.hcl.lms.dto.RangeDto;
-import com.hcl.lms.entity.AppliedLeave;
-import com.hcl.lms.entity.LeaveType;
+
 import com.hcl.lms.repository.LeaveTypesRepository;
 import com.hcl.lms.repository.RangeRepository;
-import com.hcl.lms.util.LmsConstants;
+
 
 @Service
 public class RangeServiceImpl implements RangeService {
@@ -34,8 +33,12 @@ public class RangeServiceImpl implements RangeService {
 	@Autowired
 	LeaveTypesRepository leavesTypeRepository;
 
+
 	@Autowired
 	HistoryService historyService;
+
+	
+
 
 	@Override
 	public List<LeaveHistoryWithinDateOutput> getRange(Integer userId, Integer range) {
@@ -48,10 +51,14 @@ public class RangeServiceImpl implements RangeService {
 		String toDate = date.format(formatter);
 		String fromDate = dateRange.format(formatter);
 
+
 		List<LeaveHistoryWithinDateOutput> leave = historyService.leaveHistoryWithinDates(fromDate, toDate, userId);
 		leave.forEach(obj -> {
 			LeaveHistoryWithinDateOutput dto = new LeaveHistoryWithinDateOutput();
 			dto.setAppliedLeaveDate(obj.getAppliedLeaveDate());
+
+			
+
 
 			dto.setDescription(obj.getDescription());
 

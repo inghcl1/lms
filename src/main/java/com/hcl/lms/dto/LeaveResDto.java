@@ -1,10 +1,5 @@
 package com.hcl.lms.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class LeaveResDto {
 
 	public String getMessage() {
@@ -21,5 +16,7 @@ public class LeaveResDto {
 	}
 	private String message;
 	private Integer statusCode;
+	
+	
 
 }
