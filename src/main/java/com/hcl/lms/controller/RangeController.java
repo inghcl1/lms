@@ -13,15 +13,15 @@ import com.hcl.lms.service.RangeService;
 @RestController
 @RequestMapping("/hcl")
 public class RangeController {
-	
+
 	@Autowired
 	RangeService rangeService;
-	@GetMapping("/api/{range}")
-public ResponseEntity getRange(@PathVariable String range ) {
-		
-		return new ResponseEntity<>(rangeService.getRange(range),HttpStatus.OK);
-		
-	}
 
+	@GetMapping("/api/{range}")
+	public ResponseEntity getRange(@PathVariable String range) {
+
+		return new ResponseEntity<>(rangeService.getRange(range), HttpStatus.OK);
+
+	}
 
 }
