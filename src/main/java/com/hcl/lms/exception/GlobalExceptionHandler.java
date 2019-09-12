@@ -16,13 +16,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
 	@ExceptionHandler(LmsException.class)
-	public ResponseEntity<ResponseDto> ecomorseExceptionHandler(LmsException ex, WebRequest request) {
+	public ResponseEntity<ResponseDto> lmsExceptionHandler(LmsException ex, WebRequest request) {
 
 		ResponseDto responseDto = new ResponseDto();
 		responseDto.setMessage(ex.getMessage());
 		responseDto.setStatusCode(401);
-
-		return new ResponseEntity<>(responseDto, HttpStatus.UNAUTHORIZED);
+    	return new ResponseEntity<>(responseDto, HttpStatus.UNAUTHORIZED);
 
 	}
 
