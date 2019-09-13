@@ -2,7 +2,10 @@ package com.hcl.lms.dto;
 
 public class LeaveResDto {
 
-	public String getMessage() {
+	private Integer statusCode;
+	private String message;
+
+public String getMessage() {
 		return message;
 	}
 	public void setMessage(String message) {
@@ -14,8 +17,7 @@ public class LeaveResDto {
 	public void setStatusCode(Integer statusCode) {
 		this.statusCode = statusCode;
 	}
-	private String message;
-	private Integer statusCode;
+
 	
 	
 

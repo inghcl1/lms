@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 
 public class LeaveReqDto {
-	
+
 	private Integer userId;
 	private Integer leaveTypeId;
 	private LocalDate fromDate;
@@ -40,8 +40,7 @@ public class LeaveReqDto {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+
 	
 	}
 	
