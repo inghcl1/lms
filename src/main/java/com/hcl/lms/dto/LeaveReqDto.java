@@ -11,7 +11,8 @@ public class LeaveReqDto {
 	
 	private Integer userId;
 	private Integer leaveTypeId;
-	private LocalDate appliedLeaveDate;
+	private LocalDate fromDate;
+	private LocalDate toDate;
 	private String description;
 
 }
