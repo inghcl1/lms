@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hcl.lms.dto.LeaveHistoryWithinDateOutput;
@@ -19,10 +20,13 @@ public class HistoryServiceController {
 	@Autowired
 	HistoryService historyService;
 
-	@GetMapping("/history/user/{userId}/{fromdate}/{todate}")
-	public ResponseEntity<List<LeaveHistoryWithinDateOutput>> leaveHistoryWithinDates(@PathVariable("fromdate") String fromdate,@PathVariable("todate") String todate,@PathVariable("userId") Integer userId) {
+	@GetMapping("/history/user/{userId}")
+	public ResponseEntity<List<LeaveHistoryWithinDateOutput>> leaveHistoryWithinDates(
+			@RequestParam("fromDate") String fromdate, @RequestParam("toDate") String todate,
+			@PathVariable("userId") Integer userId) {
 
-		return ResponseEntity.status(HttpStatus.OK).body(historyService.leaveHistoryWithinDates(fromdate,todate,userId));
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(historyService.leaveHistoryWithinDates(fromdate, todate, userId));
 
 	}
 
