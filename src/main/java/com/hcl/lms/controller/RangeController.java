@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hcl.lms.service.RangeService;
@@ -17,8 +18,8 @@ public class RangeController {
 	@Autowired
 	RangeService rangeService;
 
-	@GetMapping("/api/{userId}/{range}")
-public ResponseEntity getRange(@PathVariable Integer userId,@PathVariable String range ) {
+	@GetMapping("/api/{userId}")
+public ResponseEntity getRange(@PathVariable Integer userId,@RequestParam Integer range ) {
 		
 		return new ResponseEntity<>(rangeService.getRange(userId,range),HttpStatus.OK);
 		

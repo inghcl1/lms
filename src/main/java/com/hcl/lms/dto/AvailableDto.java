@@ -3,6 +3,13 @@ package com.hcl.lms.dto;
 public class AvailableDto {
 
 	private String leaveType;
+	private Integer availed;
+	public Integer getAvailed() {
+		return availed;
+	}
+	public void setAvailed(Integer availed) {
+		this.availed = availed;
+	}
 	public String getLeaveType() {
 		return leaveType;
 	}
