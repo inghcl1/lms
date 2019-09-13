@@ -40,8 +40,11 @@ public class RangeServiceImpl implements RangeService {
 
 	@Override
 	public List<LeaveHistoryWithinDateOutput> getRange(Integer userId, Integer range) {
-		
-		List<LeaveHistoryWithinDateOutput> ranges = new ArrayList<LeaveHistoryWithinDateOutput>();
+
+
+
+		List<LeaveHistoryWithinDateOutput> ranges = new ArrayList<>();
+
 
 
 		LocalDate date = LocalDate.now();
