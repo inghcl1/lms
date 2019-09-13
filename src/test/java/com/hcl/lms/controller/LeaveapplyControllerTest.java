@@ -29,7 +29,8 @@ public class LeaveapplyControllerTest {
 	@Test
 	public void applyLeaveTest() {
 		LeaveReqDto req=new LeaveReqDto();
-		req.setAppliedLeaveDate(LocalDate.now());
+		req.setFromDate(LocalDate.now());
+		req.setToDate(LocalDate.now());
 		req.setDescription("RH");
 		req.setUserId(1);
 		req.setLeaveTypeId(1);

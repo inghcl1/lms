@@ -26,4 +26,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 
+	@ExceptionHandler(NotEligibleToApplyException.class)
+	public ResponseEntity<ResponseDto> notEligibleToApplyExceptionHandler(NotEligibleToApplyException ex, WebRequest request) {
+
+		ResponseDto responseDto = new ResponseDto();
+		responseDto.setMessage(ex.getMessage());
+		responseDto.setStatusCode(400);
+    	return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+
+	}
+
 }
